@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poemas Aleatorios con Música</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;1,900&display=swap" rel="stylesheet">
+    <style>
+        *{
+            font-family: 'Poppins', cursive;
+        }
+        body{
+            color: azure;
+            width: 100%;
+            height: 82vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+        }
+
+        .botones{
+            padding: 9px;
+            border-radius: 80px;
+            background-color: transparent;
+            border: none;
+            margin: 10px;
+        }
+
+        .botones a{
+            background-color: #0a2be9;
+            padding: 9px;
+            border-radius: 80px;
+            color: azure;
+            text-decoration: none;
+        }
+
+        .botones a:focus{
+            background-color: rgb(50, 194, 194);
+        }
+
+        #file-content {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        select {
+            padding: 9px;
+            border-radius: 80px;
+            background-color: #0a2be9;
+            color: azure;
+            border: none;
+            display: block;
+            margin-top: 20px;
+        }
+
+        iframe {
+            margin-top: 20px;
+            border: none;
+        }
+
+        .volver-inicio {
+            display: none;
+            background-color: #0a2be9;
+            padding: 9px;
+            border-radius: 80px;
+            color: azure;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="greetings"><span>Poemas</span></h1>
+
+    <div class="botones">
+        <a href="#" id="random-poem">Mostrar Poema Aleatorio</a>
+    </div>
+    <div class="botones">
+        <a href="#" id="choose-poem">Elegir Poema</a>
+    </div>
+
+    <select id="poem-selector" style="display:none;">
+        <option value="">Selecciona un poema</option>
+        <option value="1">Poema 1</option>
+        <option value="2">Poema 2</option>
+        <option value="3">Poema 3</option>
+        <option value="4">Poema 4</option>
+        <option value="5">Poema 5</option>
+        <option value="6">Poema 6</option>
+        <option value="7">Poema 7</option>
+        <option value="8">Poema 8</option>
+        <option value="9">Poema 9</option>
+        <option value="10">Poema 10</option>
+    </select>
+
+    <div id="file-content"></div>
+
+    <iframe id="spotify-player" style="display:none;" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+    <a href="#" id="volver-inicio" class="volver-inicio">Volver al inicio</a>
+
+    <script>
+        const spotifyPlaylists = [
+            "https://open.spotify.com/embed/playlist/37i9dQZF1EIZexEUzyOPQ4?si=4g4EvcD0TEqvgBgWP7bVrA", // Playlist 1
+            "https://open.spotify.com/embed/playlist/37i9dQZF1DZ06evO4fAwlr?si=coUEANKfQI-iw-HTL7XnDQ ", // Playlist 2
+            "https://open.spotify.com/embed/playlist/37i9dQZF1EVHGWrwldPRtj?si=tZIVoi99TAehHPWGz6Lg2g ", // Playlist 3
+            "https://open.spotify.com/embed/playlist/37i9dQZF1E4lycTEBBywvE?si=6F5XyYVQSjGW2SnrXItDHw "  // Playlist 4
+        ];
+
+        function getRandomPlaylist() {
+            const randomIndex = Math.floor(Math.random() * spotifyPlaylists.length);
+            return spotifyPlaylists[randomIndex];
+        }
+
+        async function fetchFileContent(fileName) {
+            try {
+                const response = await fetch(fileName);
+                if (!response.ok) throw new Error('Error al cargar el archivo');
+                const text = await response.text();
+                return text;
+            } catch (error) {
+                console.error('Error:', error);
+                return '';
+            }
+        }
+
+        function displayContent(content) {
+            const fileContentDiv = document.getElementById('file-content');
+            fileContentDiv.innerHTML = ''; 
+            const lines = content.split('\n');
+            lines.forEach(line => {
+                const lineElement = document.createElement('p');
+                lineElement.textContent = line;
+                fileContentDiv.appendChild(lineElement);
+            });
+        }
+
+        function playSpotifyPlaylist() {
+            const spotifyPlayer = document.getElementById('spotify-player');
+            spotifyPlayer.src = getRandomPlaylist(); // Obtener una playlist aleatoria
+            spotifyPlayer.style.display = 'block';
+        }
+
+        async function showRandomPoem() {
+            const randomIndex = Math.floor(Math.random() * 10) + 1; 
+            const fileName = `./archivos/${randomIndex}.txt`; 
+            const content = await fetchFileContent(fileName);
+            displayContent(content); 
+            playSpotifyPlaylist(); 
+
+            document.getElementById('volver-inicio').style.display = 'block';
+        }
+
+        async function showSelectedPoem() {
+            const poemSelector = document.getElementById('poem-selector');
+            const selectedValue = poemSelector.value;
+            if (selectedValue) {
+                const fileName = `./archivos/${selectedValue}.txt`;
+                const content = await fetchFileContent(fileName);
+                displayContent(content);
+                playSpotifyPlaylist(); 
+            }
+        }
+
+        document.getElementById('random-poem').addEventListener('click', showRandomPoem);
+
+        document.getElementById('choose-poem').addEventListener('click', () => {
+            const poemSelector = document.getElementById('poem-selector');
+            poemSelector.style.display = 'block';
+        });
+
+        document.getElementById('poem-selector').addEventListener('change', showSelectedPoem);
+
+        document.getElementById('volver-inicio').addEventListener('click', function() {
+            document.getElementById('file-content').innerHTML = '';
+            document.getElementById('spotify-player').style.display = 'none';
+            document.getElementById('volver-inicio').style.display = 'none'; 
+        });
+    </script>
+</body>
+</html>
