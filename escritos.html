@@ -325,6 +325,7 @@
             displayContent(content); 
             playSpotifyPlaylist(); 
 
+            document.querySelectorAll('.botones').forEach(button => button.style.display = 'none');
             document.getElementById('volver-inicio').style.display = 'block';
         }
 
@@ -337,6 +338,9 @@
                 displayContent(content);
                 playSpotifyPlaylist(); 
             }
+            // Ocultar los botones de elegir y mostrar solo el botón de volver
+            document.querySelectorAll('.botones').forEach(button => button.style.display = 'none');
+            document.getElementById('volver-inicio').style.display = 'block';
         }
 
         document.getElementById('random-poem').addEventListener('click', showRandomPoem);
@@ -352,6 +356,11 @@
             document.getElementById('file-content').innerHTML = '';
             document.getElementById('spotify-player').style.display = 'none';
             document.getElementById('volver-inicio').style.display = 'none'; 
+
+            // Mostrar nuevamente los botones
+            document.querySelectorAll('.botones').forEach(button => {
+            button.style.display = 'block';
+    });
         });
     </script>
 </body>
