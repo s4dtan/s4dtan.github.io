@@ -22,7 +22,7 @@ body{
 }
 
 .botones a{
-    background-color: #0a2be9;
+    background-color: #ee9612;
     padding: 9px;
     border-radius: 80px;
     -webkit-border-radius: 80px;
@@ -77,21 +77,15 @@ body{
 .button a{
     text-decoration: none;
     font-size: 1rem;
-    color: #111;
+    color: #ffffff;
 }
 
-@media screen and (max-width:574px){
-    .greetings{
-        display: block;
-        font-size: 4rem;
-        font-weight: 800;
-        text-align: center;
-    }
-    .description{
-        font-size: 2rem;
-    }
-    
-    .button a{
-        font-size: 1rem;
-    }
+
+
+
+.button {
+    display: flex;
+    flex-direction: column; /* Alinea los botones verticalmente */
+    align-items: center; /* Centra los botones horizontalmente */
+    gap: 10px; /* Espaciado entre los botones */
 }

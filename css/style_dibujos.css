@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;1,900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins',cursive;
+}
+
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: rgb(41, 22, 22);
+}
+
+.slider input {
+    visibility: hidden;
+    display: none;
+}
+
+.button {
+    display: flex;
+    flex-direction: column; /* Alinea los botones verticalmente */ /* Centra los botones horizontalmente */
+    gap: 10px; /* Espaciado entre los botones */
+}
+
+.button a{
+    text-decoration: none;
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+
+.botones {
+    padding: 9px;
+    border-radius: 80px;
+    background-color: transparent;
+    border: none;
+    position: absolute; /* Mantén esto en absolute */
+    top: 20px; /* Ajusta la distancia desde la parte superior */
+    left: 20px; /* Ajusta la distancia desde la izquierda */
+    pointer-events: auto; /* Asegúrate de que los eventos de puntero funcionen */
+    z-index: 10; /* Asegúrate de que esté por encima de otros elementos */
+}
+
+
+.botones a{
+    background-color: #ee9612;
+    padding: 9px;
+    border-radius: 80px;
+    -webkit-border-radius: 80px;
+    -moz-border-radius: 80px;
+    -ms-border-radius: 80px;
+    -o-border-radius: 80px;
+
+}
+
+.botones a:focus{
+    background-color: rgb(50, 194, 194);
+}
+
+/* Asegúrate de que los demás estilos para los botones sean los mismos que en index.html */
+
+.buttons {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    bottom: 60px;
+    gap: 10px;
+}
+
+.buttons label {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    opacity: 0.5;
+    cursor: pointer;
+    z-index: 1;
+    transition: 300ms ease-in-out;
+}
+
+.buttons label:hover {
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+.slider input:checked + label {
+    opacity: 1;
+    width: 40px;
+}
+
+.content {
+    position: relative;
+    top: -50px;
+    width: 1400vw; /* Ajustado para 14 slides */
+    display: flex;
+    transition: 400ms ease-in-out;
+}
+
+.slide1, .slide2, .slide3, .slide4, .slide5, .slide6, .slide7, .slide8, .slide9, .slide10, .slide11, .slide12, .slide13, .slide14 {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide1 img, .slide2 img, .slide3 img, .slide4 img, .slide5 img, .slide6 img, .slide7 img, .slide8 img, .slide9 img, .slide10 img, .slide11 img, .slide12 img, .slide13 img, .slide14 img {
+    max-width: 80%; /* Asegura que la imagen ocupe como máximo el 90% del ancho disponible */
+    max-height: 80%; /* Asegura que la imagen ocupe como máximo el 90% del alto disponible */
+    object-fit: contain; /* Mantiene la proporción de la imagen sin que se deforme */
+    border: 2px solid white; /* Puedes ajustar el borde si quieres */
+    box-sizing: border-box; /* Asegura que el tamaño máximo incluya el borde */
+}
+/* Ajuste para cada slide */
+.slider input#slideOne:checked ~ .content {
+    left: 0;
+}
+.slider input#slideTwo:checked ~ .content {
+    left: -100vw;
+}
+.slider input#slideThree:checked ~ .content {
+    left: -200vw;
+}
+.slider input#slideFour:checked ~ .content {
+    left: -300vw;
+}
+.slider input#slideFive:checked ~ .content {
+    left: -400vw;
+}
+.slider input#slideSix:checked ~ .content {
+    left: -500vw;
+}
+.slider input#slideSeven:checked ~ .content {
+    left: -600vw;
+}
+.slider input#slideEight:checked ~ .content {
+    left: -700vw;
+}
+.slider input#slideNine:checked ~ .content {
+    left: -800vw;
+}
+.slider input#slideTen:checked ~ .content {
+    left: -900vw;
+}
+.slider input#slideEleven:checked ~ .content {
+    left: -1000vw;
+}
+.slider input#slideTwelve:checked ~ .content {
+    left: -1100vw;
+}
+.slider input#slideThirteen:checked ~ .content {
+    left: -1200vw;
+}
+.slider input#slideFourteen:checked ~ .content {
+    left: -1300vw;
+}
+
+@media (max-width: 768px) {
+    .buttons {
+        bottom: 70px; /* Ajusta la posición de los botones si es necesario */
+        flex-direction: row; /* Asegúrate de que los botones se alineen en fila */
+    }
+
+    .content {
+        width: 1400vw; /* Mantener el ancho total para los slides */
+        display: flex;
+        transition: 400ms ease-in-out;
+    }
+
+    .slide1 img, .slide2 img, .slide3 img, .slide4 img, .slide5 img, .slide6 img, .slide7 img, .slide8 img, .slide9 img, .slide10 img, .slide11 img, .slide12 img, .slide13 img, .slide14 img {
+        max-width: 100%; /* Asegúrate de que las imágenes ocupen el 100% del contenedor */
+        max-height: 70%; /* Ajusta la altura máxima */
+    }
+}
+
+/* Ajustes para tabletas */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .buttons {
+        bottom: 80px; /* Ajusta la posición de los botones si es necesario */
+    }
+
+    .slide1 img, .slide2 img, .slide3 img, .slide4 img, .slide5 img, .slide6 img, .slide7 img, .slide8 img, .slide9 img, .slide10 img, .slide11 img, .slide12 img, .slide13 img, .slide14 img {
+        max-width: 90%; /* Cambia el tamaño máximo si es necesario */
+        max-height: 80%; /* Ajusta la altura máxima */
+    }
+}
